@@ -1,0 +1,24 @@
+---
+
+- become: yes
+  become_method: sudo
+  tasks:
+    - name: Installing Python prerequisites
+      apt:
+        name: {{ item }}
+        state: present
+        update_cache: yes
+      with_items:
+        - build-essential
+        - software-properties-common
+        - libpq-dev
+        - virtualenv
+        - python3-pip
+
+    - name: Installing emacs
+      apt:
+        name: emacs24-nox
+        state: present
+        update_cache: yes
+
+    - include: role/chrome.yml
